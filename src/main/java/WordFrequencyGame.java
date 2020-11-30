@@ -9,7 +9,7 @@ public class WordFrequencyGame {
 
     public String getResult(String sentence) {
         try {
-            List<WordFrequency> wordCountList = calculateWorldFrequency(sentence);
+            List<WordFrequency> wordCountList = calculateWordFrequencies(sentence);
 
             wordCountList.sort((word1, word2) -> word2.getCount() - word1.getCount());
 
@@ -29,7 +29,7 @@ public class WordFrequencyGame {
         return wordFrequencyResult.toString();
     }
 
-    private List<WordFrequency> calculateWorldFrequency(String sentence) {
+    private List<WordFrequency> calculateWordFrequencies(String sentence) {
         //split the input string with 1 to n pieces of spaces
         List<String> words = Arrays.asList(sentence.split(SPACE_REGEX));
 
