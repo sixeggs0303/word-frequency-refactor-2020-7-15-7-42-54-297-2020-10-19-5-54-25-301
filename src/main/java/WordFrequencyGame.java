@@ -38,8 +38,7 @@ public class WordFrequencyGame {
                 StringJoiner wordFrequencyResult = new StringJoiner(LINE_FEED);
 
                 for (WordFrequency word : wordCountList) {
-                    String wordFrequencyLine = word.getWord() + " " + word.getCount();
-                    wordFrequencyResult.add(wordFrequencyLine);
+                    wordFrequencyResult.add(buildWordFrequencyLine(word));
                 }
 
                 return wordFrequencyResult.toString();
@@ -47,6 +46,10 @@ public class WordFrequencyGame {
                 return CALCULATE_ERROR;
             }
         }
+    }
+
+    private String buildWordFrequencyLine(WordFrequency word) {
+        return String.format("%s %d", word.getWord(), word.getCount());
     }
 
 
