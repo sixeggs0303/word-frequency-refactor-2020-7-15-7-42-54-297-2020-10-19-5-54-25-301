@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
 
@@ -34,22 +31,11 @@ public class WordFrequencyGame {
 
     private List<WordFrequency> calculateWorldFrequency(String sentence) {
         //split the input string with 1 to n pieces of spaces
-        String[] words = sentence.split(SPACE_REGEX);
+        List<String> words = Arrays.asList(sentence.split(SPACE_REGEX));
 
-        List<WordFrequency> wordFrequencyList = new ArrayList<>();
-        for (String word : words) {
-            wordFrequencyList.add(new WordFrequency(word, 1));
-        }
+        HashSet<String> distinctWords = new HashSet<>(words);
 
-        //get the map for the next step of sizing the same word
-        Map<String, List<WordFrequency>> wordCountMap = getWordCountMap(wordFrequencyList);
-
-        List<WordFrequency> wordCountList = new ArrayList<>();
-        for (Map.Entry<String, List<WordFrequency>> entry : wordCountMap.entrySet()) {
-            wordCountList.add(new WordFrequency(entry.getKey(), entry.getValue().size()));
-        }
-
-        return wordCountList;
+        return distinctWords.stream().map(word -> new WordFrequency(word, Collections.frequency(words, word))).collect(Collectors.toList());
     }
 
     private String buildWordFrequencyLine(WordFrequency word) {
