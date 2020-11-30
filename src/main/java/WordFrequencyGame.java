@@ -13,13 +13,13 @@ public class WordFrequencyGame {
 
             wordCountList.sort((word1, word2) -> word2.getCount() - word1.getCount());
 
-            return buildWorldFrequencyResult(wordCountList);
+            return buildWordFrequencyResult(wordCountList);
         } catch (Exception exception) {
             return CALCULATE_ERROR;
         }
     }
 
-    private String buildWorldFrequencyResult(List<WordFrequency> wordCountList) {
+    private String buildWordFrequencyResult(List<WordFrequency> wordCountList) {
         StringJoiner wordFrequencyResult = new StringJoiner(LINE_FEED);
 
         for (WordFrequency word : wordCountList) {
@@ -41,22 +41,5 @@ public class WordFrequencyGame {
     private String buildWordFrequencyLine(WordFrequency word) {
         return String.format("%s %d", word.getWord(), word.getCount());
     }
-
-
-    private Map<String, List<WordFrequency>> getWordCountMap(List<WordFrequency> wordFrequencyList) {
-        Map<String, List<WordFrequency>> wordCountMap = new HashMap<>();
-        for (WordFrequency wordFrequency : wordFrequencyList) {
-//       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!wordCountMap.containsKey(wordFrequency.getWord())) {
-                ArrayList words = new ArrayList<>();
-                words.add(wordFrequency);
-                wordCountMap.put(wordFrequency.getWord(), words);
-            } else {
-                wordCountMap.get(wordFrequency.getWord()).add(wordFrequency);
-            }
-        }
-        return wordCountMap;
-    }
-
 
 }
