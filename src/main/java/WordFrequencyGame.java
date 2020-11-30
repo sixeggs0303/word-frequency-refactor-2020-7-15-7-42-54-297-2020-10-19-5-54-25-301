@@ -24,7 +24,9 @@ public class WordFrequencyGame {
     }
 
     private String buildWordFrequencyResult(List<WordFrequency> wordCountList) {
-        return wordCountList.stream().map(this::buildWordFrequencyLine).collect(Collectors.joining(LINE_FEED));
+        return wordCountList.stream()
+                .map(this::buildWordFrequencyLine)
+                .collect(Collectors.joining(LINE_FEED));
     }
 
     private List<WordFrequency> calculateWordFrequencies(String sentence) {
@@ -32,7 +34,9 @@ public class WordFrequencyGame {
 
         HashSet<String> distinctWords = new HashSet<>(words);
 
-        return distinctWords.stream().map(word -> new WordFrequency(word, Collections.frequency(words, word))).collect(Collectors.toList());
+        return distinctWords.stream()
+                .map(word -> new WordFrequency(word, Collections.frequency(words, word)))
+                .collect(Collectors.toList());
     }
 
     private String buildWordFrequencyLine(WordFrequency word) {
