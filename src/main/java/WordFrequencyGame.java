@@ -10,13 +10,17 @@ public class WordFrequencyGame {
     public String getResult(String sentence) {
         try {
             List<WordFrequency> wordCountList = calculateWordFrequencies(sentence);
-
-            wordCountList.sort((word1, word2) -> word2.getCount() - word1.getCount());
-
+            sortWordCountList(wordCountList);
             return buildWordFrequencyResult(wordCountList);
+
         } catch (Exception exception) {
             return CALCULATE_ERROR;
+
         }
+    }
+
+    private void sortWordCountList(List<WordFrequency> wordCountList) {
+        wordCountList.sort((word1, word2) -> word2.getCount() - word1.getCount());
     }
 
     private String buildWordFrequencyResult(List<WordFrequency> wordCountList) {
@@ -30,7 +34,6 @@ public class WordFrequencyGame {
     }
 
     private List<WordFrequency> calculateWordFrequencies(String sentence) {
-        //split the input string with 1 to n pieces of spaces
         List<String> words = Arrays.asList(sentence.split(SPACE_REGEX));
 
         HashSet<String> distinctWords = new HashSet<>(words);
