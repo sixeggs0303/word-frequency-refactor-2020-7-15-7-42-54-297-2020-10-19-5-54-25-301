@@ -10,37 +10,30 @@ public class WordFrequencyGame {
     public String getResult(String sentence) {
         try {
             List<WordFrequency> wordCountList = calculateWordFrequencies(sentence);
-            sortWordCountList(wordCountList);
+            sortWordFrequencyListInDesc(wordCountList);
             return buildWordFrequencyResult(wordCountList);
-
         } catch (Exception exception) {
             return CALCULATE_ERROR;
-
         }
     }
 
-    private void sortWordCountList(List<WordFrequency> wordCountList) {
-        wordCountList.sort((word1, word2) -> word2.getCount() - word1.getCount());
+    private void sortWordFrequencyListInDesc(List<WordFrequency> wordFrequencyList) {
+        wordFrequencyList.sort((word1, word2) -> word2.getCount() - word1.getCount());
     }
 
-    private String buildWordFrequencyResult(List<WordFrequency> wordCountList) {
-        return wordCountList.stream()
-                .map(this::buildWordFrequencyLine)
+    private String buildWordFrequencyResult(List<WordFrequency> wordFrequencyList) {
+        return wordFrequencyList.stream()
+                .map(WordFrequency::buildWordFrequencyLine)
                 .collect(Collectors.joining(LINE_FEED));
     }
 
     private List<WordFrequency> calculateWordFrequencies(String sentence) {
         List<String> words = Arrays.asList(sentence.split(SPACE_REGEX));
 
-        HashSet<String> distinctWords = new HashSet<>(words);
-
-        return distinctWords.stream()
+        return words.stream()
+                .distinct()
                 .map(word -> new WordFrequency(word, Collections.frequency(words, word)))
                 .collect(Collectors.toList());
-    }
-
-    private String buildWordFrequencyLine(WordFrequency word) {
-        return String.format("%s %d", word.getWord(), word.getCount());
     }
 
 }
